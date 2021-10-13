@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.mapper.CommentsMapper">
+    <select id="getByteId" resultType="com.ssm.pojo.Comments">
+        select * from comments where hotEventsId=#{hotEventsId}
+        ORDER BY commentDate DESC
+    </select>
+    <insert id="add" parameterType="com.ssm.pojo.Comments">
+        INSERT INTO comments(hotEventsId,commentDate,content)
+        VALUES(#{hotEventsId},now(),#{content})
+    </insert>
+</mapper>

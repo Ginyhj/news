@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.mapper.HoteventsMapper">
+    <select id="getPage" resultType="com.ssm.pojo.Hotevents">
+        SELECT * FROM hotevents
+        <where>
+            <if test="keyWord!=null and keyWord!=''">
+                and keyWord like concat('%',#{keyWord},'%')
+            </if>
+        </where>
+        ORDER BY searchSum DESC
+        limit #{pageIndex},#{pageSize}
+    </select>
+    <select id="getCount" resultType="int">
+        SELECT count(*) FROM hotevents
+        <where>
+            <if test="keyWord!=null and keyWord!=''">
+                and keyWord like concat('%',#{keyWord},'%')
+            </if>
+        </where>
+        ORDER BY searchSum DESC
+    </select>
+    <select id="getByteId" resultType="com.ssm.pojo.Hotevents">
+        select * from hotevents where id=#{id}
+    </select>
+    <update id="update" parameterType="int">
+        UPDATE hotevents SET searchSum=searchSum+1 WHERE id=#{id}
+    </update>
+</mapper>
